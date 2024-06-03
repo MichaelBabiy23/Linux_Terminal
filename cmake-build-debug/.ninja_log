@@ -1,0 +1,20 @@
+# ninja log v5
+1	207	1716975822729654146	CMakeFiles/OSHomeWork1.dir/ex1.c.o	fa50d52608b5cb53
+1	207	1716975822729675541	CMakeFiles/OSHomeWork1.dir/string_utils.c.o	589a71a49e69e875
+2	100	1716802310804734344	CMakeFiles/OSHomeWork1.dir/alias.c.o	cf3129c1490e8328
+208	288	1716975822802600153	OSHomeWork1	efaeab43474eae3a
+0	135	1717346248751813613	build.ninja	be67a706bed4679e
+2	207	1716975822729648603	CMakeFiles/OSHomeWork1.dir/alias_manager.c.o	aa0b58406a10d440
+1	90	1716447942622215823	CMakeFiles/OSHomeWork1.dir/main.c.o	44d35a6353c40287
+2	208	1716975822731632169	CMakeFiles/OSHomeWork1.dir/command_executor.c.o	cb386cd832ccdea3
+1	105	1717352281701542784	CMakeFiles/OSHomeWork1.dir/ex1.c.o	fa50d52608b5cb53
+3	109	1717352281705953674	CMakeFiles/OSHomeWork1.dir/alias_manager.c.o	aa0b58406a10d440
+2	110	1717352281707902043	CMakeFiles/OSHomeWork1.dir/string_utils.c.o	589a71a49e69e875
+2	113	1717352281712374727	CMakeFiles/OSHomeWork1.dir/command_executor.c.o	cb386cd832ccdea3
+113	185	1717352281781530215	OSHomeWork1	efaeab43474eae3a
+2	194	1717438391530194196	CMakeFiles/OSHomeWork1.dir/command_executor.c.o	cb386cd832ccdea3
+1	195	1717438391531778285	CMakeFiles/OSHomeWork1.dir/string_utils.c.o	589a71a49e69e875
+195	304	1717438391640016735	OSHomeWork1	efaeab43474eae3a
+2	119	1717438885717547551	CMakeFiles/OSHomeWork1.dir/string_utils.c.o	589a71a49e69e875
+3	121	1717438885720772548	CMakeFiles/OSHomeWork1.dir/command_executor.c.o	cb386cd832ccdea3
+121	215	1717438885810998814	OSHomeWork1	efaeab43474eae3a
