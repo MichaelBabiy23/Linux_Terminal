@@ -32,6 +32,7 @@ void execute_command(char *input) {
         return;
     }
 
+    // Adding new alias
     if (strncmp(input, "alias ", 6) == 0) {
         // remove_spaces_around_equals(input);
 
