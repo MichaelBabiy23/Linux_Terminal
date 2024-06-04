@@ -2,7 +2,7 @@ Shell Project
 Authored by Michael Babiy
 323073734
 
-#Description
+# Description
 
 This project implements a custom shell program that can execute commands, manage aliases, and run script files.
 The shell supports various features such as command execution, alias management, script execution, and tracking of command statistics.
