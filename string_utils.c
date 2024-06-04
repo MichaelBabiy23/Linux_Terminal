@@ -176,7 +176,7 @@ char* concatenate_arguments(int num_args, char *args[]) {
     // Allocate memory for the concatenated string
     char *result = (char *)malloc((total_length + 1) * sizeof(char));
     if (result == NULL) {
-        printf("Memory allocation failed\n");
+        perror("Malloc");
         exit(1);
     }
 
@@ -207,7 +207,8 @@ int split_alias(const char *input, char *command, char *name) {
     // Find the first delimiter
     token = strtok((char *)input, delimiters);
     if (token == NULL) {
-        printf("Error: Invalid alias format\n");
+        // printf("Error: Invalid alias format\n");
+        printf("ERR\n");
         return 1;
     }
 

@@ -21,7 +21,8 @@ void execute_command(char *input) {
 
     if(has_balanced_quotes(input) == 0)
     {
-        printf("Invalid quotes number.\n");
+        // printf("Invalid quotes number.\n");
+        printf("ERR\n");
         return;
     }
     // Check for alias print
@@ -50,13 +51,15 @@ void execute_command(char *input) {
             add_alias(name, command);
             success_commands++;
         } else {
-            printf("Invalid alias format. Use alias name='command'.\n");
+            printf("ERR\n");
+            // printf("Invalid alias format. Use alias name='command'.\n");
         }
         return;
     }
 
     if (strcmp(input, "unalias") == 0) {
-        printf("Usage: unalias name\n");
+        printf("ERR\n");
+        // printf("Usage: unalias name\n");
         return;
     }
 
@@ -73,7 +76,8 @@ void execute_command(char *input) {
     parse_arguments(input, args, &num_args);
     if (num_args > MAX_ARGS + 1) // Not include the command itself
     {
-        printf("Error: Maximum number of arguments exceeded.\n");
+        printf("ERR\n");
+        // printf("Error: Maximum number of arguments exceeded.\n");
         return;
     }
 
@@ -147,7 +151,8 @@ void execute_script(char *script_file) {
 
     // Check if the last three characters are ".sh"
     if (len < 3 || !(script_file[len - 3] == '.' && script_file[len - 2] == 's' && script_file[len - 1] == 'h')) {
-        printf("Not .sh file\n");
+        // printf("Not .sh file\n");
+        printf("ERR\n");
         return;
     }
 
@@ -163,7 +168,8 @@ void execute_script(char *script_file) {
         // Bash header
         if (strcmp(line, "#!/bin/bash") != 0)
         {
-            printf("No bash header\n");
+            printf("ERR\n");
+            // printf("No bash header\n");
             return;
         }
     }
