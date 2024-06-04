@@ -100,13 +100,11 @@ void remove_spaces_around_equals(char *input) {
 void parse_arguments(char *input, char *args[], int *num_args) {
     *num_args = 0;
     char *token = strtok(input, " ");
-    int quot_exists = 0;
 
     while (token != NULL && *num_args < MAX_ARGS + 2) { // MAX_ARGS + command + spare one to not show an error
         // Check if the token starts with a quote
         if (token[0] == '\"' || token[0] == '\'') {
             char quote_type = token[0]; // Store the quote type (single or double)
-            quot_exists = 1;
             // If the token ends with the same quote
             if (token[strlen(token) - 1] == quote_type) {
                 args[(*num_args)++] = token; // Add the token as an argument
@@ -132,7 +130,6 @@ void parse_arguments(char *input, char *args[], int *num_args) {
         token = strtok(NULL, " "); // Move to the next token
     }
     args[*num_args] = NULL;
-    total_apostrophes += quot_exists;
 }
 
 /**
@@ -253,11 +250,12 @@ int has_space_around_equal(const char *str) {
  */
 void remove_quotes(char *str) {
     int len = strlen(str);
-
+    int removed = 0;
     // Handle single quotes at the start and end
     if (len > 1 && str[0] == '\'' && str[len - 1] == '\'') {
         memmove(str, str + 1, len - 2); // Shift characters to overwrite the start quote
         str[len - 2] = '\0'; // Null terminate the string
+        removed = 1;
     }
     else
     {
@@ -268,9 +266,29 @@ void remove_quotes(char *str) {
         for (i = 0; i < len; i++) {
             if (str[i] != '\"') {
                 str[j++] = str[i];
+                removed = 1;
             }
         }
 
         str[j] = '\0'; // Null terminate the string
     }
+    total_apostrophes += removed;
+}
+
+/**
+ * Check if args array has any quote
+ * @param args
+ * @return true/false
+ */
+int has_quotes(char *args[]) {
+    for (char* arg; *args; args++) {
+        arg = *args;
+        while (*arg) {
+            if (*arg == '"' || *arg == '\'') {
+                return 1; // Found a quote, return true
+            }
+            arg++;
+        }
+    }
+    return 0; // No quotes found in any of the strings
 }

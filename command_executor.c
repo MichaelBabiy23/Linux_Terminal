@@ -128,8 +128,10 @@ void execute_child_process(char *args[]) {
         // Parent process
         wait(&status);
         // If child process succeed
-        if(WEXITSTATUS(status) == 0)
+        if(WEXITSTATUS(status) == 0) {
             success_commands++;
+            total_apostrophes += has_quotes(args);
+        }
     }
 }
 

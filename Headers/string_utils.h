@@ -11,6 +11,7 @@ char* concatenate_arguments(int num_args, char *args[]);
 int split_alias(const char *input, char *command, char *name);
 int has_space_around_equal(const char *str);
 void remove_quotes(char *str);
+int has_quotes(char *args[]);
 
 extern int total_apostrophes;
 #endif
