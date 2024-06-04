@@ -26,6 +26,3 @@ int main() {
     }
     return 0;
 }
-/**
- * Fix the readme file and we are DONE! :))
-*/
