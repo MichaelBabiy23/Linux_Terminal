@@ -248,7 +248,7 @@ int has_space_around_equal(const char *str) {
  * Removes the quotes
  * @param str
  */
-void remove_quotes(char *str) {
+int remove_quotes(char *str) {
     int len = strlen(str);
     int removed = 0;
     // Handle single quotes at the start and end
@@ -266,13 +266,14 @@ void remove_quotes(char *str) {
         for (i = 0; i < len; i++) {
             if (str[i] != '\"') {
                 str[j++] = str[i];
-                removed = 1;
             }
+            else
+                removed = 1;
         }
 
         str[j] = '\0'; // Null terminate the string
     }
-    total_apostrophes += removed;
+    return removed;
 }
 
 /**

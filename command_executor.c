@@ -105,9 +105,12 @@ void execute_command(char *input) {
     }
 
     if (strcmp(args[0], "echo") == 0) {
+        int checker = 0;
         for (int i = 1; i < num_args; ++i) {
-            remove_quotes(args[i]);
+            if (remove_quotes(args[i]) == 1)
+                checker = 1;
         }
+        total_apostrophes += checker;
     }
     execute_child_process(args);
 }
