@@ -91,7 +91,10 @@ void execute_command(char *input) {
     char *alias_command = get_alias_command(args[0]);
     if (alias_command != NULL) {
         args[0] = alias_command;
-        execute_command(concatenate_arguments(num_args, args));
+        char* temp = concatenate_arguments(num_args, args);
+        free(alias_command);
+        execute_command(temp);
+        free(temp);
         return;
     }
 

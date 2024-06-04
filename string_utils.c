@@ -173,7 +173,7 @@ char* concatenate_arguments(int num_args, char *args[]) {
     // Allocate memory for the concatenated string
     char *result = (char *)malloc((total_length + 1) * sizeof(char));
     if (result == NULL) {
-        perror("Malloc");
+        perror("malloc");
         exit(1);
     }
 

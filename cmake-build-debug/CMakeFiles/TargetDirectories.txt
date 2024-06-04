@@ -1,3 +1,3 @@
-/Users/michaelbabiy/CLionProjects/OSHomeWork1/cmake-build-debug/CMakeFiles/OSHomeWork1.dir
-/Users/michaelbabiy/CLionProjects/OSHomeWork1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/michaelbabiy/CLionProjects/OSHomeWork1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/student/CLionProjects/Linux_Terminal/cmake-build-debug/CMakeFiles/OSHomeWork1.dir
+/home/student/CLionProjects/Linux_Terminal/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/student/CLionProjects/Linux_Terminal/cmake-build-debug/CMakeFiles/rebuild_cache.dir
