@@ -14,7 +14,7 @@ void update_prompt() {
 }
 
 int main() {
-    char input[MAX_LINE];
+    char input[MAX_LINE] = {0};
 
     while (1) {
         update_prompt();

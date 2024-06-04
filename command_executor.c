@@ -17,6 +17,11 @@ extern int total_script_lines;
  * @param input.
  */
 void execute_command(char *input) {
+    if (input == NULL || strlen(input) == 0) { // Check for NULL input or empty string
+        printf("ERR\n");
+        return;
+    }
+
     remove_multiple_spaces(input);
 
     if(has_balanced_quotes(input) == 0)
@@ -72,8 +77,8 @@ void execute_command(char *input) {
     }
 
     // If not an alias, execute the command
-    char *args[MAX_ARGS];
-    int num_args;
+    char *args[MAX_ARGS] = {0};
+    int num_args = 0;
     parse_arguments(input, args, &num_args);
     if (num_args > MAX_ARGS + 1) // Not include the command itself
     {
@@ -142,7 +147,7 @@ void execute_child_process(char *args[]) {
  */
 void execute_script(char *script_file) {
     FILE *fp;
-    char line[MAX_LINE];
+    char line[MAX_LINE] = {0};
 
     // Open the script file
     fp = fopen(script_file, "r");
@@ -153,28 +158,20 @@ void execute_script(char *script_file) {
     int len = strlen(script_file);
 
     // Check if the last three characters are ".sh"
-    if (len < 3 || !(script_file[len - 3] == '.' && script_file[len - 2] == 's' && script_file[len - 1] == 'h')) {
-        // printf("Not .sh file\n");
+    if (len < 3 || strcmp(script_file + len - 3, ".sh") != 0) {
         printf("ERR\n");
+        fclose(fp);
         return;
     }
 
 
     success_commands++;
 
-    if (fgets(line, sizeof(line), fp) != NULL)
-    {
-        // Remove newline character
-        line[strcspn(line, "\n")] = 0;
-
-        // printf("%s", line);
-        // Bash header
-        if (strcmp(line, "#!/bin/bash") != 0)
-        {
-            printf("ERR\n");
-            // printf("No bash header\n");
-            return;
-        }
+    // Bash header check
+    if (fgets(line, sizeof(line), fp) != NULL && strcmp(line, "#!/bin/bash\n") != 0) {
+        printf("ERR\n");
+        fclose(fp);
+        return;
     }
 
     // Read and execute each line in the script file

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include "Headers/constants.h"
 #include "Headers/alias_manager.h"
 
 Alias *alias_list = NULL;
@@ -15,9 +16,15 @@ int active_aliases = 0;
 void add_alias(char *name, char *command) {
     if (strcmp(name, command) == 0)
     {
-        printf("Can't add alias with the same command and name.\n");
+        printf("ERR\n");
         return;
     }
+
+    if (strlen(name) > MAX_LINE || strlen(command) > MAX_LINE) {
+        printf("ERR\n");
+        return;
+    }
+
 
     // Updating if alias exists
     Alias *current = alias_list;
@@ -34,6 +41,10 @@ void add_alias(char *name, char *command) {
 
     // Adding alias
     Alias *new_alias = (Alias *)malloc(sizeof(Alias));
+    if (new_alias == NULL) {
+        perror("malloc");
+        exit(1);
+    }
     new_alias->name = strdup(name);
     new_alias->command = strdup(command);
     new_alias->next = alias_list;
@@ -77,9 +88,7 @@ char* get_alias_command(char *name) {
     Alias *current = alias_list;
     while (current != NULL) {
         if (strcmp(current->name, name) == 0) {
-            char *temp = malloc(strlen(current->command) + 1);
-            strcpy(temp, current->command);
-            return temp;
+            return strdup(current->command); // Return a copy of the command
         }
         current = current->next;
     }
