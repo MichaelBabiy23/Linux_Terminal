@@ -11,4 +11,8 @@ add_executable(OSHomeWork1 ex1.c
         Headers/alias_manager.h
         alias_manager.c
         Headers/constants.h
+        Headers/process_handler.h
+        "process_handler.c"
+        Headers/process_manager.h
+        process_manager.c
 )

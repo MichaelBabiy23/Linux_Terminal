@@ -2,17 +2,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
 #include "Headers/alias_manager.h"
 #include "Headers/string_utils.h"
 #include "Headers/command_executor.h"
 #include "Headers/constants.h"
+#include "Headers/process_handler.h"
+#include "Headers/process_manager.h"
 
 extern int success_commands;
 extern int total_script_lines;
 
-// TODO: add description
+int background_process_flag = 0;
+
+/**
+ * Alias handler function to process alias command.
+ * @param input The input string containing the alias command
+ */
 void alias_handler(char* input)
 {
     // remove_spaces_around_equals(input);
@@ -38,9 +43,13 @@ void alias_handler(char* input)
     }
 }
 
-// TODO: add description
-
-void sign_handler(char* input, char* and_sign, char* or_sign)
+/**
+ * Handles commands separated by AND or OR operators.
+ * @param input The input string containing the commands.
+ * @param and_sign Pointer to the AND sign.
+ * @param or_sign Pointer to the OR sign.
+ */
+void or_and_sign_handler(char* input, char* and_sign, char* or_sign)
 {
     char* first_command = input;
     char* second_command = and_sign == NULL ? or_sign + 3 : and_sign + 3;
@@ -60,6 +69,7 @@ void sign_handler(char* input, char* and_sign, char* or_sign)
             execute_command(second_command);
     }
 }
+
 /**
  * Executes the given command by parsing and forking a new process.
  * @param input.
@@ -70,12 +80,29 @@ void execute_command(char *input) {
         return;
     }
 
+
     remove_multiple_spaces(input);
 
     if(has_balanced_quotes(input) == 0)
     {
         // printf("Invalid quotes number.\n");
         printf("ERR\n");
+        return;
+    }
+
+    // Check for & sign
+    background_process_flag = 0;
+    input[strlen(input) - 1] = input[strlen(input)- 1]  == ' ' ? '\0' : input[strlen(input)- 1];
+    if (input[strlen(input)- 1]  == '&')
+    {
+        input[strlen(input)- 1] = '\0';
+        background_process_flag = 1;
+    }
+
+    // Check for alias print
+    if (strcmp(input, "jobs") == 0 || strcmp(input, "jobs ") == 0) {
+        print_process();
+        success_commands++;
         return;
     }
 
@@ -110,7 +137,7 @@ void execute_command(char *input) {
     char* or_sign = strstr(input, "||");
     if (and_sign != NULL || or_sign != NULL)
     {
-        sign_handler(input, and_sign, or_sign);
+        or_and_sign_handler(input, and_sign, or_sign);
         return;
     }
 
@@ -150,37 +177,9 @@ void execute_command(char *input) {
         }
         total_apostrophes += checker;
     }
-    execute_child_process(args);
+    execute_child_process(args, num_args);
 }
 
-/**
- * Executes the given command in a child process.
- * @param args The command arguments.
- */
-void execute_child_process(char *args[]) {
-    int status;
-    pid_t pid = fork();
-    if (pid < 0) {
-        perror("fork");
-        exit(1);
-    } else if (pid == 0) {
-        // printf("Im stupid child --------------------\n");
-        // Child process
-        if (execvp(args[0], args) < 0) {
-            perror("exec");
-            _exit(1);
-            // _exit instead of simple exit to avoid looping
-        }
-    } else {
-        // Parent process
-        wait(&status);
-        // If child process succeed
-        if(WEXITSTATUS(status) == 0) {
-            success_commands++;
-            total_apostrophes += has_quotes(args);
-        }
-    }
-}
 
 /**
  * Executes the script file.
@@ -245,5 +244,6 @@ void shell_exit() {
     // printf("Exiting shell...\n");
     printf("%i\n", total_apostrophes);
     free_all_aliases();
+    free_all_process();
     exit(0);
 }

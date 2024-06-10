@@ -73,6 +73,18 @@ build CMakeFiles/OSHomeWork1.dir/alias_manager.c.o: C_COMPILER__OSHomeWork1_unsc
   OBJECT_DIR = CMakeFiles/OSHomeWork1.dir
   OBJECT_FILE_DIR = CMakeFiles/OSHomeWork1.dir
 
+build CMakeFiles/OSHomeWork1.dir/process_handler.c.o: C_COMPILER__OSHomeWork1_unscanned_Debug /Users/michaelbabiy/CLionProjects/OSHomeWork1/process_handler.c || cmake_object_order_depends_target_OSHomeWork1
+  DEP_FILE = CMakeFiles/OSHomeWork1.dir/process_handler.c.o.d
+  FLAGS = -g -std=gnu11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/OSHomeWork1.dir
+  OBJECT_FILE_DIR = CMakeFiles/OSHomeWork1.dir
+
+build CMakeFiles/OSHomeWork1.dir/process_manager.c.o: C_COMPILER__OSHomeWork1_unscanned_Debug /Users/michaelbabiy/CLionProjects/OSHomeWork1/process_manager.c || cmake_object_order_depends_target_OSHomeWork1
+  DEP_FILE = CMakeFiles/OSHomeWork1.dir/process_manager.c.o.d
+  FLAGS = -g -std=gnu11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/OSHomeWork1.dir
+  OBJECT_FILE_DIR = CMakeFiles/OSHomeWork1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target OSHomeWork1
@@ -81,7 +93,7 @@ build CMakeFiles/OSHomeWork1.dir/alias_manager.c.o: C_COMPILER__OSHomeWork1_unsc
 #############################################
 # Link the executable OSHomeWork1
 
-build OSHomeWork1: C_EXECUTABLE_LINKER__OSHomeWork1_Debug CMakeFiles/OSHomeWork1.dir/ex1.c.o CMakeFiles/OSHomeWork1.dir/string_utils.c.o CMakeFiles/OSHomeWork1.dir/command_executor.c.o CMakeFiles/OSHomeWork1.dir/alias_manager.c.o
+build OSHomeWork1: C_EXECUTABLE_LINKER__OSHomeWork1_Debug CMakeFiles/OSHomeWork1.dir/ex1.c.o CMakeFiles/OSHomeWork1.dir/string_utils.c.o CMakeFiles/OSHomeWork1.dir/command_executor.c.o CMakeFiles/OSHomeWork1.dir/alias_manager.c.o CMakeFiles/OSHomeWork1.dir/process_handler.c.o CMakeFiles/OSHomeWork1.dir/process_manager.c.o
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
   OBJECT_DIR = CMakeFiles/OSHomeWork1.dir
   POST_BUILD = :
