@@ -127,6 +127,7 @@ void parse_arguments(char *input, char *args[], int *num_args) {
         } else {
             args[(*num_args)++] = token;
         }
+        // printf("ARGS: %s\n", args[(*num_args) - 1]);
         token = strtok(NULL, " "); // Move to the next token
     }
     args[*num_args] = NULL;
