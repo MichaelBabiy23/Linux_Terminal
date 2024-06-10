@@ -88,7 +88,7 @@ void print_process() {
     Process *current_process = process_list;
     int index = 1;
     while (current_process != NULL) {
-        printf("[%d]%d\t Running\t %s&\n", index++, current_process->pid, current_process->command);
+        printf("[%d] Running \t\t%s &\n", index++, current_process->command);
         current_process = current_process->next;
     }
 }

@@ -49,6 +49,8 @@ void execute_child_process(char *args[], int num_args) {
         else
         {
             add_process(pid, concatenate_arguments(num_args, args), status, has_quotes(args));
+            printf("[%d]%d\n", active_processes, pid);
+            sleep(1);
         }
     }
 }
