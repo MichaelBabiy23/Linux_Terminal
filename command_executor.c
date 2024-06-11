@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/file.h>
+#include <unistd.h>
 #include "Headers/alias_manager.h"
 #include "Headers/string_utils.h"
 #include "Headers/command_executor.h"
@@ -13,6 +15,45 @@ extern int success_commands;
 extern int total_script_lines;
 
 int background_process_flag = 0;
+
+/**
+ * Redirects stderr to a specified file and executes a command.
+ * @param input The command input string.
+ * @param sign2 Pointer to the "2>" redirection sign in the input string.
+ */
+void stderrToFile(char* input, char* sign2) {
+    (*sign2) = '\0';
+    char *command = input;
+    char *file_path = sign2 + 3;
+    printf("%s\n", file_path);
+    if (file_path != NULL) {
+        // Open the file for writing
+        int fd = open(file_path, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        if (fd < 0) {
+            perror("open");
+            _exit(1);
+        }
+        // Redirect stderr to the file
+        int original_stderr = dup(STDERR_FILENO);
+        if (dup2(fd, STDERR_FILENO) < 0) {
+            perror("dup2");
+            _exit(1);
+        }
+
+        execute_command(command);
+
+        // Close the file descriptor, as it's no longer needed
+        close(fd);
+
+        // Restore the original stderr before exiting
+        if (dup2(original_stderr, STDERR_FILENO) < 0) {
+            perror("dup2");
+            _exit(1);
+        }
+        close(original_stderr);
+
+    }
+}
 
 /**
  * Alias handler function to process alias command.
@@ -80,7 +121,6 @@ void execute_command(char *input) {
         return;
     }
 
-
     remove_multiple_spaces(input);
 
     if(has_balanced_quotes(input) == 0)
@@ -97,6 +137,14 @@ void execute_command(char *input) {
     {
         input[strlen(input)- 1] = '\0';
         background_process_flag = 1;
+    }
+
+    // Check for 2> sign
+    char *sign2 = strstr(input, "2>");
+    if (sign2 != NULL)
+    {
+        stderrToFile(input, sign2);
+        return;
     }
 
     // Check for alias print

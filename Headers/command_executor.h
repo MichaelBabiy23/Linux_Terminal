@@ -8,6 +8,7 @@ void execute_script(char *script_file);
 void shell_exit();
 void alias_handler(char* input);
 void or_and_sign_handler(char* input, char* and_sign, char* or_sign);
+void stderrToFile(char* input, char* sign2);
 
 extern int background_process_flag;
 
