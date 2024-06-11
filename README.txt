@@ -4,21 +4,22 @@ Authored by Michael Babiy
 
 # Description
 
-This project implements a custom shell program that can execute commands, manage aliases, and run script files.
-The shell supports various features such as command execution, alias management, script execution, and tracking of command statistics.
+This project implements a custom shell program that can execute commands, manage aliases, run script files, and manage processes.
+The shell supports various features such as command execution, alias management, script execution, process management, and tracking of command statistics.
 
 # Features
 
 - Command Execution: The shell can execute commands by parsing the input, forking a new process, and executing the command in the child process.
 - Alias Management: Users can create, view, and remove aliases for frequently used commands.
 - Script Execution: The shell can execute script files (.sh files) by reading and executing each line in the script.
+- Process Management: The shell can track and manage background processes.
 - Statistics Tracking: The shell keeps track of the number of successfully executed commands, active aliases, and lines executed from script files.
 - Error Handling: The shell provides error messages for invalid inputs, such as unbalanced quotes, invalid alias formats, and non-script files.
 
 # Program Database
 
 - alias_list: A linked list of Alias structs, representing the list of aliases.
-- active_aliases: An integer keeping track of the number of active aliases.
+- process_list: A linked list of Process structs, representing the list of background processes.
 
 # Program Files
 
@@ -26,12 +27,14 @@ The shell supports various features such as command execution, alias management,
 - command_executor.c: Implements the functions for executing commands, scripts, and managing child processes.
 - alias_manager.c: Handles the management of aliases, including adding, removing, retrieving aliases, and freeing memory.
 - string_utils.c: Contains utility functions for string manipulation, such as removing quotes, spaces, and parsing arguments.
+- process_manager.c: Implements the functions for managing background processes.
+- process_handler.c: Handles the creation, termination, and status checking of background processes.
 - Headers/: This directory contains header files for the corresponding .c files, defining structs, constants, and function declarations.
 
 # Compilation
 
 To compile the program, use the following command:
-gcc -Wall ex1.c alias_manager.c string_utils.c command_executor.c -o ex1
+gcc -Wall ex1.c alias_manager.c string_utils.c command_executor.c process_manager.c process_handler.c -o ex1
 
 # Execution
 
@@ -40,43 +43,18 @@ Run the compiled program with:
 
 # Usage
 
-1. Executing Commands: Enter a command at the prompt, and the shell will execute it. For example: ls -l.
-2. Managing Aliases:
-   - Create a new alias: alias name='command'
-   - View all aliases: alias
-   - Remove an alias: unalias name
-3. Executing Scripts: Use the source command followed by the script file path to execute a script file. For example: source script.sh.
+1. Executing Commands: Enter a command at the prompt, and the shell will execute it if it's a valid command.
+2. Managing Aliases: Use the alias command to create, view, or remove aliases.
+3. Running Scripts: Use the source command followed by the script file name to execute a script file.
+4. Managing Processes: Use the jobs command to list all background processes.
 
-# Output
-
-The shell prompt displays the following information:
-
-#cmd:X|#alias:Y|#script lines:Z>
-
-- X: The number of successfully executed commands.
-- Y: The number of active aliases.
-- Z: The number of lines executed from script files.
-
-When exiting the shell, it prints the total number of apostrophes (single or double quotes) encountered during execution.
-
-# Note
-
-- The shell supports a maximum of MAX_ARGS arguments for a command (defined in constants.h).
-- The maximum line length for user input or script lines is MAX_LINE (defined in constants.h).
-
-# Function Descriptions
-
-main.c
-
-- update_prompt(): Updates and prints the shell prompt with the current command, alias, and script line counts.
-- main(): The entry point of the program. It runs an infinite loop that reads user input, updates the prompt, and executes the command.
+# Functions
 
 command_executor.c
 
-- execute_command(char *input): Executes the given command by parsing and forking a new process. It handles alias management, script execution, and error handling.
-- execute_child_process(char *args[]): Executes the given command in a child process using fork and execvp.
+- execute_command(char *args[]): Executes the given command in a child process using fork and execvp.
 - execute_script(char *script_file): Executes the script file by reading and executing each line in the file.
-- shell_exit(): Exits the shell by printing the total number of apostrophes, freeing all aliases, and terminating the program.
+- shell_exit(): Exits the shell by printing the total number of executed commands, freeing all aliases, and terminating the program.
 
 alias_manager.c
 
@@ -98,3 +76,17 @@ string_utils.c
 - has_space_around_equal(const char *str): Checks if the input string has a space before or after the equal sign.
 - remove_quotes(char *str): Removes the quotes from the input string.
 - has_quotes(char *args[]): Checks if the args array contains any quoted strings.
+
+process_manager.c
+
+- add_process(pid_t pid, char *command): Adds a new process to the process list.
+- remove_process(pid_t pid): Removes a process from the process list by its PID.
+- get_process_command(pid_t pid): Returns the command associated with a process. If the process is not found, it returns NULL.
+- print_processes(): Prints all background processes in the process list, displaying associated commands.
+- free_all_processes(): Frees the memory allocated for all processes in the process list.
+
+process_handler.c
+
+- execute_child_process(char *args[], int num_args): Executes the given command in a child process.
+- sigchld_handler(int sig): Handles the SIGCHLD signal to clean up zombie processes.
+- setup_sigaction(): Sets up signal handling for SIGCHLD to clean up zombie processes.
