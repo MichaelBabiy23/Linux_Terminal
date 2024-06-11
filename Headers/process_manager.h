@@ -8,7 +8,6 @@
 typedef struct Process {
     pid_t pid;
     char* command;
-    int status;
     int has_quotes;
     struct Process *next;
 } Process;
@@ -16,7 +15,7 @@ typedef struct Process {
 extern Process *process_list;
 extern int active_processes;
 
-void add_process(pid_t pid, char* command, int status, int has_quotes);
+void add_process(pid_t pid, char* command, int has_quotes);
 void remove_process(pid_t pid);
 void print_process();
 void free_all_process();

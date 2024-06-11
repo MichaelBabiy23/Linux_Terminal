@@ -15,7 +15,7 @@ int active_processes = 0;
  * @param status The status of the process.
  * @param has_quotes Indicates if the command has quotes.
  */
-void add_process(pid_t pid, char* command, int status, int has_quotes) {
+void add_process(pid_t pid, char* command, int has_quotes) {
     // Allocate memory for the new process
     Process *new_process = (Process *)malloc(sizeof(Process));
     if (new_process == NULL) {
@@ -26,7 +26,6 @@ void add_process(pid_t pid, char* command, int status, int has_quotes) {
     // Set the attributes of the new process
     new_process->pid = pid;
     new_process->command = strdup(command);
-    new_process->status = status;
     new_process->has_quotes = has_quotes;
     new_process->next = NULL;
 
