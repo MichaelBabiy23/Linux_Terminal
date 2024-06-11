@@ -50,7 +50,7 @@ void execute_child_process(char *args[], int num_args) {
         {
             add_process(pid, concatenate_arguments(num_args, args), status, has_quotes(args));
             printf("[%d]%d\n", active_processes, pid);
-            sleep(1);
+            usleep(5000); // In case or an exec error, time to print the error line before prompting
         }
     }
 }
