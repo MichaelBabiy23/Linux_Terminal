@@ -79,7 +79,7 @@ void alias_handler(char* input)
         add_alias(name, command);
         success_commands++;
     } else {
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         // printf("Invalid alias format. Use alias name='command'.\n");
     }
 }
@@ -117,7 +117,7 @@ void or_and_sign_handler(char* input, char* and_sign, char* or_sign)
  */
 void execute_command(char *input) {
     if (input == NULL || strlen(input) == 0) { // Check for NULL input or empty string
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         return;
     }
 
@@ -126,7 +126,7 @@ void execute_command(char *input) {
     if(has_balanced_quotes(input) == 0)
     {
         // printf("Invalid quotes number.\n");
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         return;
     }
 
@@ -147,7 +147,7 @@ void execute_command(char *input) {
         return;
     }
 
-    // Check for alias print
+    // Check for jobs
     if (strcmp(input, "jobs") == 0 || strcmp(input, "jobs ") == 0) {
         print_process();
         success_commands++;
@@ -168,7 +168,7 @@ void execute_command(char *input) {
     }
 
     if (strcmp(input, "unalias") == 0) {
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         // printf("Usage: unalias name\n");
         return;
     }
@@ -195,7 +195,7 @@ void execute_command(char *input) {
     parse_arguments(input, args, &num_args);
     if (num_args > MAX_ARGS + 1) // Not include the command itself
     {
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         // printf("Error: Maximum number of arguments exceeded.\n");
         return;
     }
@@ -250,7 +250,7 @@ void execute_script(char *script_file) {
 
     // Check if the last three characters are ".sh"
     if (len < 3 || strcmp(script_file + len - 3, ".sh") != 0) {
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         fclose(fp);
         return;
     }
@@ -260,7 +260,7 @@ void execute_script(char *script_file) {
 
     // Bash header check
     if (fgets(line, sizeof(line), fp) != NULL && strcmp(line, "#!/bin/bash\n") != 0) {
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         fclose(fp);
         return;
     }

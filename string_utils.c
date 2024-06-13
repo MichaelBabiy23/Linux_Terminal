@@ -206,7 +206,7 @@ int split_alias(const char *input, char *command, char *name) {
     token = strtok((char *)input, delimiters);
     if (token == NULL) {
         // printf("Error: Invalid alias format\n");
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         return 1;
     }
 
