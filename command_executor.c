@@ -25,7 +25,7 @@ void stderrToFile(char* input, char* sign2) {
     (*sign2) = '\0';
     char *command = input;
     char *file_path = sign2 + 3;
-    printf("%s\n", file_path);
+    // printf("%s\n", file_path);
     if (file_path != NULL) {
         // Open the file for writing
         int fd = open(file_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
