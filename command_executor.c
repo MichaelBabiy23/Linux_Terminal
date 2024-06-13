@@ -31,13 +31,13 @@ void stderrToFile(char* input, char* sign2) {
         int fd = open(file_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         if (fd < 0) {
             perror("open");
-            _exit(1);
+            return;
         }
         // Redirect stderr to the file
         int original_stderr = dup(STDERR_FILENO);
         if (dup2(fd, STDERR_FILENO) < 0) {
             perror("dup2");
-            _exit(1);
+            return;
         }
 
         execute_command(command);
@@ -48,7 +48,7 @@ void stderrToFile(char* input, char* sign2) {
         // Restore the original stderr before exiting
         if (dup2(original_stderr, STDERR_FILENO) < 0) {
             perror("dup2");
-            _exit(1);
+            return;
         }
         close(original_stderr);
 
