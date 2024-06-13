@@ -16,12 +16,12 @@ int active_aliases = 0;
 void add_alias(char *name, char *command) {
     if (strcmp(name, command) == 0)
     {
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         return;
     }
 
     if (strlen(name) > MAX_LINE || strlen(command) > MAX_LINE) {
-        printf("ERR\n");
+        fprintf(stderr, "ERR\n");
         return;
     }
 
