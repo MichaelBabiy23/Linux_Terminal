@@ -7,6 +7,7 @@
 
 typedef struct Process {
     pid_t pid;
+    int index;
     char* command;
     int has_quotes;
     struct Process *next;

@@ -7,7 +7,7 @@
 
 Process *process_list = NULL;
 int active_processes = 0;
-
+int total_processes = 0;
 /**
  * Add a new process to the end process list.
  * @param pid The process ID.
@@ -25,6 +25,7 @@ void add_process(pid_t pid, char* command, int has_quotes) {
 
     // Set the attributes of the new process
     new_process->pid = pid;
+    new_process->index = ++total_processes;
     new_process->command = strdup(command);
     new_process->has_quotes = has_quotes;
     new_process->next = NULL;
@@ -85,9 +86,8 @@ void remove_process(pid_t pid) {
  */
 void print_process() {
     Process *current_process = process_list;
-    int index = 1;
     while (current_process != NULL) {
-        printf("[%d] Running \t\t%s &\n", index++, current_process->command);
+        printf("[%d] Running \t\t%s &\n", current_process->index, current_process->command);
         current_process = current_process->next;
     }
 }
