@@ -100,7 +100,7 @@ void or_and_sign_handler(char* input, char* and_sign, char* or_sign)
     {
         *or_sign = '\0';
         execute_command(first_command);
-        if (temp_success_commands + 1 != success_commands)
+        if (temp_success_commands == success_commands)
             execute_command(second_command);
     }
     else
@@ -108,7 +108,7 @@ void or_and_sign_handler(char* input, char* and_sign, char* or_sign)
 
         *and_sign = '\0';
         execute_command(first_command);
-        if (temp_success_commands + 1 == success_commands)
+        if (temp_success_commands != success_commands)
             execute_command(second_command);
     }
 }
