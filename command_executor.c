@@ -95,7 +95,8 @@ void or_and_sign_handler(char* input, char* and_sign, char* or_sign)
     char* first_command = input;
     char* second_command = and_sign == NULL ? or_sign + 3 : and_sign + 3;
     int temp_success_commands = success_commands;
-    if ((and_sign && or_sign && and_sign < or_sign) || (and_sign && !or_sign))
+    if (and_sign)
+    //if ((and_sign && or_sign && and_sign < or_sign) || (and_sign && !or_sign))
     {
         *and_sign = '\0';
         execute_command(first_command);
