@@ -37,25 +37,25 @@ void remove_first_last_char(char *arg) {
  */
 void remove_multiple_spaces(char *input) {
     int i = 0, x = 0;
+    int in_quotes = 0;
 
     while (input[i]) {
-        // Remove multiple spaces
-        if (input[i] == ' ' && (i > 0 && input[i-1] == ' ')) {
+        // Toggle in_quotes if we encounter a quote character
+        if (input[i] == '"' || input[i] == '\'') {
+            in_quotes = !in_quotes;
+        }
+
+        // Remove multiple spaces only if not inside quotes
+        if (input[i] == ' ' && !in_quotes && (i > 0 && input[i-1] == ' ')) {
             i++;
             continue;
         }
-
+        printf("%c\n", input[i]);
         input[x++] = input[i++];
     }
     input[x] = '\0';
-
-    /*
-    // Remove trailing space if present
-    if (x > 0 && input[x-1] == ' ') {
-        input[x-1] = '\0';
-    }
-    */
 }
+
 
 /**
  * Removes spaces before and after the '=' sign in the input string.
