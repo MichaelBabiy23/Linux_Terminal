@@ -123,6 +123,7 @@ void execute_command(char *input) {
     }
 
     remove_multiple_spaces(input);
+    remove_parentheses(input);
 
     if(has_balanced_quotes(input) == 0)
     {

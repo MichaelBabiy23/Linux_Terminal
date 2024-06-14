@@ -12,6 +12,7 @@ int split_alias(const char *input, char *command, char *name);
 int has_space_around_equal(const char *str);
 int remove_quotes(char *str);
 int has_quotes(char *args[]);
+void remove_parentheses(char *str);
 
 extern int total_apostrophes;
 #endif

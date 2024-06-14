@@ -6,6 +6,40 @@
 #include "Headers/string_utils.h"
 
 /**
+ * Removes '(' and ')' characters from the input string.
+ * @param input Pointer to the input string to be modified.
+ */
+void remove_parentheses(char *str) {
+    int i, j;
+    int len = strlen(str);
+    int balance = 0; // Counter to balance '(' and ')'
+
+    for (i = 0, j = 0; i < len; i++) {
+        if (str[i] == '(') {
+            balance++;
+        } else if (str[i] == ')') {
+            balance--;
+        }
+
+        if (balance < 0) {
+            fprintf(stderr, "ERR\n");
+            return;
+        }
+
+        if (str[i] != '(' && str[i] != ')') {
+            str[j++] = str[i];
+        }
+    }
+
+    if (balance != 0) {
+        fprintf(stderr, "ERR\n");
+        return;
+    }
+
+    str[j] = '\0'; // Null-terminate the modified string
+}
+
+/**
  * Removes the first and last characters from a given string.
  * @param arg
  */
@@ -50,7 +84,7 @@ void remove_multiple_spaces(char *input) {
             i++;
             continue;
         }
-        printf("%c\n", input[i]);
+        // printf("%c\n", input[i]);
         input[x++] = input[i++];
     }
     input[x] = '\0';
