@@ -132,6 +132,14 @@ void execute_command(char *input) {
         return;
     }
 
+    char* and_sign = strstr(input, "&&");
+    char* or_sign = strstr(input, "||");
+    if (and_sign != NULL || or_sign != NULL)
+    {
+        or_and_sign_handler(input, and_sign, or_sign);
+        return;
+    }
+
     // Check for & sign
     background_process_flag = 0;
     input[strlen(input) - 1] = input[strlen(input)- 1]  == ' ' ? '\0' : input[strlen(input)- 1];
@@ -182,14 +190,6 @@ void execute_command(char *input) {
         return;
     }
 
-
-    char* and_sign = strstr(input, "&&");
-    char* or_sign = strstr(input, "||");
-    if (and_sign != NULL || or_sign != NULL)
-    {
-        or_and_sign_handler(input, and_sign, or_sign);
-        return;
-    }
 
     // If not an alias, execute the command
     char *args[MAX_ARGS] = {0};
