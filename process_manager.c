@@ -45,6 +45,7 @@ void add_process(pid_t pid, char* command, int has_quotes) {
 
     // Increment the count of active processes
     active_processes++;
+    free(command);
 }
 
 /**
