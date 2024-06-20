@@ -88,7 +88,7 @@ void remove_process(pid_t pid) {
 void print_process() {
     Process *current_process = process_list;
     while (current_process != NULL) {
-        printf("[%d] Running \t\t%s &\n", current_process->index, current_process->command);
+        printf("[%d]               %s &\n", current_process->index, current_process->command);
         current_process = current_process->next;
     }
 }
