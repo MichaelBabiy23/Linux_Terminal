@@ -3,7 +3,7 @@ project(OSHomeWork1 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(OSHomeWork1 ex1.c
+add_executable(OSHomeWork1 ex2.c
         Headers/string_utils.h
         string_utils.c
         Headers/command_executor.h

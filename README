@@ -23,7 +23,7 @@ The shell supports various features such as command execution, alias management,
 
 # Program Files
 
-- main.c: Contains the main function and the entry point of the program.
+- ex2.c: Contains the main function and the entry point of the program.
 - command_executor.c: Implements the functions for executing commands, scripts, and managing child processes.
 - alias_manager.c: Handles the management of aliases, including adding, removing, retrieving aliases, and freeing memory.
 - string_utils.c: Contains utility functions for string manipulation, such as removing quotes, spaces, and parsing arguments.
@@ -34,12 +34,12 @@ The shell supports various features such as command execution, alias management,
 # Compilation
 
 To compile the program, use the following command:
-gcc -Wall ex1.c alias_manager.c string_utils.c command_executor.c process_manager.c process_handler.c -o ex1
+gcc -Wall ex2.c alias_manager.c string_utils.c command_executor.c process_manager.c process_handler.c -o ex2
 
 # Execution
 
 Run the compiled program with:
-./ex1
+./ex2
 
 # Usage
 
