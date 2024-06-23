@@ -133,6 +133,14 @@ void execute_command(char *input) {
         return;
     }
 
+    // Check for 2> sign
+    char *sign2 = strstr(input, "2>");
+    if (sign2 != NULL)
+    {
+        stderrToFile(input, sign2);
+        return;
+    }
+
     char* and_sign = strstr(input, "&&");
     char* or_sign = strstr(input, "||");
     if (and_sign != NULL || or_sign != NULL)
@@ -150,13 +158,7 @@ void execute_command(char *input) {
         background_process_flag = 1;
     }
 
-    // Check for 2> sign
-    char *sign2 = strstr(input, "2>");
-    if (sign2 != NULL)
-    {
-        stderrToFile(input, sign2);
-        return;
-    }
+
 
     // Check for jobs
     if (strcmp(input, "jobs") == 0 || strcmp(input, "jobs ") == 0) {
